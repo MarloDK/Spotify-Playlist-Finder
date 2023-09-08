@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Finder</title>
+
+    <!--<link href="../../public/assets/main.css" rel="stylesheet">
+    <link href="../../public/assets/header.css" rel="stylesheet">-->
+</head>
+<body>
+    <%- include('../partials/header'); %>
+
+    <div id="search-bar-container" style="text-align: center;">
+        <input type="text" id="search-field">
+        <input type="submit" id="search-button" value="Search">
+    </div>
+
+    <div id="search-results-container" style="text-align: center;">
+        <table style="margin: 5vh auto;" border="1">
+            <tr>
+                <th>Name</th><th>Owner</th><th>Songs</th><th>Followers</th><th>Email</th>
+            </tr>
+
+            <% for (var i = 0; i < playlistEntries.length; i++) { %>
+            <tr>
+                <td style="width: 10%;"><a href=<%= playlistEntries[i].link %> target="_blank"><%= playlistEntries[i].name %></a></td>
+                <td style="width: 10%;"><%= playlistEntries[i].owner %></td>
+                <td style="width: 10%;"><%= playlistEntries[i].songs %></td>
+                <td style="width: 10%;"><%= playlistEntries[i].followers %></td>
+                <td style="width: 10%;"><%= playlistEntries[i].email %></td>
+            </tr>    
+            <% } %>
+        </table>
+    </div>
+</body>
+</html>

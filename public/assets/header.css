@@ -1,0 +1,11 @@
+#header {
+    background-color: var(--header-color);
+    height: 7.5vh;
+    width: 100%;
+}
+
+a#header-logo {
+    font-size: 25px;
+    top: 50%;
+    height: 100%;
+}
