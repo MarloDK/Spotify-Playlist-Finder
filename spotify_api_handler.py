@@ -54,10 +54,10 @@ def get_songs_by_artist(token, artist_id):
 #endregion
 
 #region Playlist Search
-def search_for_playlists(token, searchTerm, limit):
+def search_for_playlists(token, searchTerm, limit, offset):
     url = "https://api.spotify.com/v1/search"
     header = get_auth_header(token)
-    query = f"?q={searchTerm}&type=playlist&limit={limit}"
+    query = f"?q={searchTerm}&type=playlist&limit={limit}&offset={offset}"
 
     query_url = url + query
     result = get(query_url, headers=header)
@@ -89,5 +89,17 @@ def get_email_in_playlist_description(playlist_information):
             if segment.__contains__("@") and len(segment) > 2:
                 return segment
     return match[0][0] + "@" + match[0][4]
+
+def get_tracks_in_playlist(token, playlist_id):
+    url = f"https://api.spotify.com/v1/playlists/{playlist_id}/tracks"
+    header = get_auth_header(token)
+
+    result = get(url, headers=header)
+    json_result = json.loads(result.content)['items']
+
+    tracks = len(json_result)
+    if tracks == 0:
+        print("No tracks in playlist...")
+    return tracks
 
 #endregion

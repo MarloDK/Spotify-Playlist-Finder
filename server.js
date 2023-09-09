@@ -36,7 +36,8 @@ app.get('/', (req, res) => {
     playlistArray.push(newPlaylist, newPlaylist2);
 
 
-    res.render('pages/home', { playlistEntries: playlistArray });
+    //res.render('pages/home', { playlistEntries: playlistArray });
+    res.render('pages/home');
 });
 
 app.post('/search', async (req, res) => {

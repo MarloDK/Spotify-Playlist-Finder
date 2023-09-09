@@ -5,35 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Playlist Finder</title>
 
-    <!--<link href="../../public/assets/main.css" rel="stylesheet">
-    <link href="../../public/assets/header.css" rel="stylesheet">-->
+    <link href="../../public/assets/main.css" rel="stylesheet">
+    <link href="../../public/assets/header.css" rel="stylesheet">
 </head>
 <body>
     <%- include('../partials/header'); %>
 
-    <div id="search-bar-container" style="text-align: center;">
-        <form action="/search" method="post">
+    <div id="page-wrapper">
+        <h1>Find Playlists</h1>
+        <div id="search-bar-container">
             <input type="text" name="searchTerm" id="search-field">
-            <input type="submit" id="search-button" value="Search">
-        </form>
-    </div>
+            <input type="submit" id="search-button" value="Search" onclick="getPlaylists()">
+        </div>
+    
+        <div id="search-results-container" style="text-align: center;">
+            <table style="margin: 5vh auto;" id="playlists-display">
+                <tr id="table-header">
+                    <th>Name</th><th>Owner</th><th>Songs</th><th>Followers</th><th>Email</th>
+                </tr>
 
-    <div id="search-results-container" style="text-align: center;">
-        <table style="margin: 5vh auto;" border="1">
-            <tr>
-                <th>Name</th><th>Owner</th><th>Songs</th><th>Followers</th><th>Email</th>
+                
+            </table>
+        </div>
+    </div>
+    
+
+
+
+    <script>
+        async function getPlaylists() {
+            const searchTerm = document.getElementById('search-field').value;
+            const url = 'http://localhost:9000/searchPlaylists?searchTerm=' + searchTerm;
+
+            fetch(url, {
+                method: 'GET',
+                dataType: 'json',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                generateHTML(data);
+            })
+            .catch(err => {
+                console.log("An error has occured: " + err)
+            });
+        }
+
+        playlistDisplay = document.getElementById('playlists-display');
+
+        function generateHTML(myData) {
+            let output = `
+            <tr id="table-header">
+                <th class="playlist-field--name">Name</th><th class="playlist-field--owner">Owner</th><th>Songs</th><th>Followers</th><th class="playlist-field--contact">Email</th>
             </tr>
+            `;
 
-            <% for (var i = 0; i < playlistEntries.length; i++) { %>
-            <tr>
-                <td style="width: 10%;"><a href=<%= playlistEntries[i].link %> target="_blank"><%= playlistEntries[i].name %></a></td>
-                <td style="width: 10%;"><%= playlistEntries[i].owner %></td>
-                <td style="width: 10%;"><%= playlistEntries[i].songs %></td>
-                <td style="width: 10%;"><%= playlistEntries[i].followers %></td>
-                <td style="width: 10%;"><%= playlistEntries[i].email %></td>
-            </tr>    
-            <% } %>
-        </table>
-    </div>
+            var playlistsData = myData.playlists;
+            console.log(playlistsData);
+
+            var playlistDict = {};
+            for (var i = 0; i < playlistsData.length; i++) {
+                var entry = playlistsData[i];
+                playlistDict[i] = entry;
+            }
+            console.log(playlistDict);
+
+            playlistsData.forEach(playlist => {
+                output += `
+                <tr class="playlist-container">
+                    <td class="playlist-field playlist-field--name"><a href="${playlist.link}" target="_blank">${playlist.name}</a></td>
+                    <td class="playlist-field playlist-field--owner">${playlist.owner}</td>
+                    <td class="playlist-field playlist-field--tracks">${playlist.tracks}</td>
+                    <td class="playlist-field playlist-field--followers">${playlist.followers}</td>
+                    <td class="playlist-field playlist-field--contact">${playlist.contact}</td>
+                </tr>   
+                `;
+            });
+
+            playlistDisplay.innerHTML = output;
+        }
+    </script>
 </body>
 </html>

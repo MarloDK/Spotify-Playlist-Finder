@@ -1,11 +1,16 @@
 #header {
     background-color: var(--header-color);
-    height: 7.5vh;
+    line-height: 7.5vh;
     width: 100%;
+    
 }
 
-a#header-logo {
+#header-logo {
     font-size: 25px;
-    top: 50%;
-    height: 100%;
+    font-weight: 600;
+    
+
+    left: 2vh;
+    display: inline-block;
+    position: relative;
 }
