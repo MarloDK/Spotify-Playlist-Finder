@@ -12,8 +12,10 @@
     <%- include('../partials/header'); %>
 
     <div id="search-bar-container" style="text-align: center;">
-        <input type="text" id="search-field">
-        <input type="submit" id="search-button" value="Search">
+        <form action="/search" method="post">
+            <input type="text" name="searchTerm" id="search-field">
+            <input type="submit" id="search-button" value="Search">
+        </form>
     </div>
 
     <div id="search-results-container" style="text-align: center;">

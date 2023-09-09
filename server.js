@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const axios = require('axios')
 
 const app = express();
 
@@ -38,8 +39,18 @@ app.get('/', (req, res) => {
     res.render('pages/home', { playlistEntries: playlistArray });
 });
 
-app.post('/search', (req, res) => {
+app.post('/search', async (req, res) => {
     let data = req.body;
+
+    axios.post('http://127.0.0.1:9000/searchPlaylists', {
+        searchTerm: data.searchTerm
+    })
+    .then((response) => {
+        console.log(response.data);
+    }, (error) => {
+        console.warn(error);
+    });
+
     res.redirect('/results');
 });
 
