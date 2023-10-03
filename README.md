@@ -41,7 +41,7 @@ Once you have installed the application using the guide above, you're ready to g
 
 Once logged in, you should see this page:
 
-![Spotify Developer Dashboard](<Github Readme/Untitled-1.PNG>)
+![Spotify Developer Dashboard](<Github Readme/Untitled-1.png>)
 
 Next, click the 'Create App' button. On this page, fill out the fields 'App name' and 'App description'. Spotify also wants a redirect URL. For now, just go ahead and set that as `https://github.com/`.
 
