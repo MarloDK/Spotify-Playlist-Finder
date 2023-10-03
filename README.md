@@ -39,12 +39,15 @@ Next, you need an API Key from Spotify.
 #### Creating the Spotify API App
 Once you have installed the application using the guide above, you're ready to get your Spotify API keys. To do so, head over to https://developer.spotify.com/ and log in to your Spotify account.
 
-Once logged in, you should see this page: ![Spotify Developer Dashboard](<Github Readme/Untitled-1.PNG>)
+Once logged in, you should see this page:
+
+![Spotify Developer Dashboard](<Github Readme/Untitled-1.PNG>)
 
 Next, click the 'Create App' button. On this page, fill out the fields 'App name' and 'App description'. Spotify also wants a redirect URL. For now, just go ahead and set that as `https://github.com/`.
 
 Now, the submission form should look something like this:
-![[Spotify App Creation Example](<Github Readme/Spotify App Creation.PNG>)
+
+![Spotify App Creation Example](<Github Readme/Spotify App Creation.PNG>)
 
 Go ahead and agree to the terms of service, and click the 'Create app' button.
 
