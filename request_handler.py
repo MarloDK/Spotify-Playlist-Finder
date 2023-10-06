@@ -25,7 +25,7 @@ def search_playlists():
     
     valid_playlists = []
 
-    for i in range(20):
+    for i in range(1):
         print(f"Finding playlists... ({i*50+50}/{50*20})")
 
         playlists = spotify.search_for_playlists(token, search_term, 50, 50*i)
@@ -36,25 +36,25 @@ def search_playlists():
             playlist_followers = playlist_info['followers']['total']
             playlist_contact = spotify.get_email_in_playlist_description(playlist_info)
 
-            if playlist_contact != None and playlist_followers > 1000:
-                playlist_name = re.sub(r'[^\x00-\x7F]', '', playlist_info['name'])
-                playlist_owner = playlist_info['owner']['display_name']
-                playlist_tracks = spotify.get_tracks_in_playlist(token, playlist['id'])
-                #print(f"{idx+1}. {playlist_name} ({playlist_owner})")
-                #print("Followers:" + str(playlist_followers))
-                #print("Email: " + str(playlist_contact))
+            if playlist_contact == None and playlist_followers < 1000:
+                break
 
-                valid_playlists.append({
-                    "name": playlist_name,
-                    "owner": playlist_owner,
-                    "link": playlist['external_urls']['spotify'],
-                    "tracks": playlist_tracks,
-                    "followers": playlist_followers,
-                    "contact": str(playlist_contact)
-                })
+            playlist_name = re.sub(r'[^\x00-\x7F]', '', playlist_info['name'])
+            playlist_owner = playlist_info['owner']['display_name']
+            playlist_tracks = spotify.get_tracks_in_playlist(token, playlist['id'])
+
+            valid_playlists.append({
+                "name": playlist_name,
+                "owner": playlist_owner,
+                "link": playlist['external_urls']['spotify'],
+                "tracks": playlist_tracks,
+                "followers": playlist_followers,
+                "contact": str(playlist_contact)
+            })
+
+    print(valid_playlists)
 
     response = jsonify({"playlists": valid_playlists})
-    print(valid_playlists)
     response.headers.add('Access-Control-Allow-Origin', '*')
     
 
